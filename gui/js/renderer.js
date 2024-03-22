@@ -1,7 +1,8 @@
 
 
 window.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('spotify-zip').addEventListener('change', handleFileChanged)
+    document.getElementById('spotify-zip').addEventListener('change', handleFileChanged);
+    dataReady();
 })
 
 function handleFileChanged() {
@@ -14,30 +15,29 @@ function handleFileChanged() {
 
 async function dataReady() {
     let hist = JSON.parse(await backend.loadMusicHistory());
+    const artists = goupSort(hist, 'artistName');
+    const tracks  = goupSort(hist, 'trackName');
 
     add('<h2>Allgemein</h2>');
-
     addFact('Gehörte Lieder', hist.length);
+    addFact('Gehörte Lieder (distinct)', tracks.length);
+    addFact('Gehörte Künstler', artists.length);
+    addTop(10, 'Künstler', artists);
+    addTop(10, 'Heavy Rotation', tracks);
+}
 
-    const groupedByArtist = hist.reduce((acc, curr) => {
-        if (!acc[curr.artistName]) {
-            acc[curr.artistName] = 0;
+
+function goupSort(recs, fieldName){
+    const grouped = recs.reduce((acc, curr) => {
+        if (!acc[curr[fieldName]]) {
+            acc[curr[fieldName]] = 0;
         }
-        acc[curr.artistName] += 1;
+        acc[curr[fieldName]] += 1;
         return acc;
     }, {});
 
-    const sortedArtists = Object.entries(groupedByArtist)
-        .sort((a, b) => b[1] - a[1]);
-
-    console.log(sortedArtists);
-
-    addFact('Gehörte Künstler', sortedArtists.length);
-
-    addTop(30, 'Künstler', sortedArtists);
-
+    return Object.entries(grouped).sort((a, b) => b[1] - a[1]);
 }
-
 
 function debug(x) {
     console.log(x);
