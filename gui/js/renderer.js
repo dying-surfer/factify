@@ -1,11 +1,18 @@
+
+
 window.addEventListener('DOMContentLoaded', () => {
-    backend.init('./.ignore/my_spotify_data.zip')
-    .then((data) => {
-        dataReady(data);
-    })
+    document.getElementById('spotify-zip').addEventListener('change', handleFileChanged)
 })
 
-function dataReady(data){
+function handleFileChanged() {
+    console.log(this.files[0].path);
+    backend.init(this.files[0].path)
+        .then((data) => {
+            dataReady(data);
+        })
+}
+
+function dataReady(data) {
     console.log(data)
-    document.getElementById('debug').innerText = data;
+    document.getElementById('debug').innerText = 'Ready!';
 }
