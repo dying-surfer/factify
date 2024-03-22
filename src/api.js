@@ -1,5 +1,9 @@
+const fs = require('fs');
+const zlib = require('zlib');
+
 function init(filePath) {
-    return 'ok'
+    const fileContents = fs.createReadStream(filePath);
+    return fileContents;
 }
 
 module.exports = { init }

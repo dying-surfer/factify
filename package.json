@@ -10,5 +10,8 @@
   "license": "MIT Public License",
   "devDependencies": {
     "electron": "^29.1.5"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.12"
   }
 }

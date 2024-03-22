@@ -22,8 +22,8 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
 })
 
-ipcMain.handle('init', async (event, ...args) => {
-  return api.init(...args);
+ipcMain.handle('init', async (event, path) => {
+  return api.init(path);
 });
 
 

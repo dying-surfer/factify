@@ -1,10 +1,11 @@
 window.addEventListener('DOMContentLoaded', () => {
-    backend.init('wooot')
+    backend.init('./.ignore/my_spotify_data.zip')
     .then((data) => {
-        dataReady();
+        dataReady(data);
     })
 })
 
-function dataReady(){
-    document.getElementById('debug').innerText = 'Okay, kann los gehen';
+function dataReady(data){
+    console.log(data)
+    document.getElementById('debug').innerText = data;
 }

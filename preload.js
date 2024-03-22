@@ -8,5 +8,5 @@ contextBridge.exposeInMainWorld('versions', {
 
 
 contextBridge.exposeInMainWorld('backend', {
-  'init': () => ipcRenderer.invoke('init'),
+  'init': (path) => ipcRenderer.invoke('init', path),
 })
