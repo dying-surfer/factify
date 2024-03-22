@@ -1,7 +1,7 @@
 {
-  "name": "chartify",
+  "name": "factify",
   "version": "1.0.0",
-  "description": "Visualizations of spotify history",
+  "description": "Facts from your Spotify data",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
@@ -10,5 +10,8 @@
   "license": "MIT Public License",
   "devDependencies": {
     "electron": "^29.1.5"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.12"
   }
 }

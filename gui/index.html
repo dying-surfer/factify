@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <script src="./js/renderer.js"></script>
-    <title>Chartify</title>
-  </head>
-  <body>
-    <h1>Welcome!</h1>
-    We are using Node.js <span id="node-version"></span>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <script src="./js/renderer.js"></script>
+  <link rel="stylesheet" href="./css/styles.css" />
+  <title>Factify</title>
+</head>
+
+<body>
+  
+  <label for="spotify-zip" class="custom-file-upload">
+    Datei auswählen
+  </label>
+  <input type="file" id="spotify-zip" />
+  
+  <div id="content"></div>
+  <div id="debug"></div>
+</body>
+
 </html>
