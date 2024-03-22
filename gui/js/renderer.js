@@ -15,24 +15,25 @@ function handleFileChanged() {
 
 async function dataReady() {
     let hist = JSON.parse(await backend.loadMusicHistory());
-    const artists = goupSort(hist, 'artistName');
-    const tracks  = goupSort(hist, 'trackName');
+    const artists = goupSort(hist, (r) => r.artistName);
+    const tracks  = goupSort(hist, (r) => `${r.artistName} - ${r.trackName}`);
 
     add('<h2>Allgemein</h2>');
     addFact('Gehörte Lieder', hist.length);
     addFact('Gehörte Lieder (distinct)', tracks.length);
     addFact('Gehörte Künstler', artists.length);
-    addTop(10, 'Künstler', artists);
-    addTop(10, 'Heavy Rotation', tracks);
+    addTop(50, 'Künstler', artists);
+    addTop(50, 'Heavy Rotation', tracks);
 }
 
-
-function goupSort(recs, fieldName){
+//TODO: datenaufbereitung gehört ins backend
+function goupSort(recs, fun){
     const grouped = recs.reduce((acc, curr) => {
-        if (!acc[curr[fieldName]]) {
-            acc[curr[fieldName]] = 0;
+        let groupByVal = fun(curr);
+        if (!acc[groupByVal]) {
+            acc[groupByVal] = 0;
         }
-        acc[curr[fieldName]] += 1;
+        acc[groupByVal] += 1;
         return acc;
     }, {});
 
