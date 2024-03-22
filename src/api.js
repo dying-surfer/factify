@@ -4,7 +4,7 @@ const {app} = require('electron');
 const fs = require('fs')
 const fsPromises = require('fs/promises')
 
-const workdir = path.join(app.getPath('appData'), 'chartify', 'spotify');
+const workdir = path.join(app.getPath('appData'), 'factify', 'raw_data');
 
 async function init(filepath) {
     const zip = new AdmZip(filepath);

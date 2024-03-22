@@ -1,7 +1,7 @@
 {
-  "name": "chartify",
+  "name": "factify",
   "version": "1.0.0",
-  "description": "Visualizations of spotify history",
+  "description": "Facts from your Spotify data",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
