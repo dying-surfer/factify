@@ -2,16 +2,22 @@ const AdmZip = require("adm-zip");
 const path = require("path")
 const {app} = require('electron');
 const fs = require('fs')
+const fsPromises = require('fs/promises')
+
+const workdir = path.join(app.getPath('appData'), 'chartify', 'spotify');
 
 async function init(filepath) {
     const zip = new AdmZip(filepath);
-
-    const outputDir = path.join(app.getPath('appData'), 'chartify', 'spotify');
-    fs.rmSync(outputDir, { recursive: true, force: true });
-    zip.extractAllTo(outputDir);
-    console.log(`Extracted all to ${outputDir}`);
+    
+    fs.rmSync(workdir, { recursive: true, force: true });
+    zip.extractAllTo(workdir);
+    console.log(`Extracted all to ${workdir}`);
     return 'ok';
 }
 
+async function loadMusicHistory(){
+    return fsPromises.readFile(path.join(workdir, 'Spotify Account Data', 'StreamingHistory_music_0.json'), 'utf-8');
+}
 
-module.exports = { init }
+
+module.exports = { init, loadMusicHistory }

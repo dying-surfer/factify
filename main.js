@@ -26,5 +26,8 @@ ipcMain.handle('init', async (event, path) => {
   return api.init(path);
 });
 
+ipcMain.handle('loadMusicHistory', async (event) => {
+  return api.loadMusicHistory();
+});
 
 
