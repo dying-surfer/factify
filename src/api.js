@@ -1,9 +1,15 @@
-const fs = require('fs');
-const zlib = require('zlib');
+const AdmZip = require("adm-zip");
+const path = require("path")
+const {app} = require('electron');
 
-function init(filePath) {
-    const fileContents = fs.createReadStream(filePath);
-    return fileContents;
+async function init(filepath) {
+    const zip = new AdmZip(filepath);
+
+    const outputDir = path.join(app.getPath('appData'), 'chartify', 'spotify');
+    zip.extractAllTo(outputDir);
+    console.log(`Extracted all to ${outputDir}`);
+    return 'ok';
 }
+
 
 module.exports = { init }
