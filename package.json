@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron ."
   },
-  "author": "Ralph Schneller",
+  "author": "dying-surfer",
   "license": "MIT Public License",
   "devDependencies": {
     "electron": "^29.1.5"
