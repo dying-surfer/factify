@@ -1,0 +1,18 @@
+:root {
+    --bg-color: #252525;
+    --font-color: #eee;
+    
+}
+
+[data-theme="light"] {
+    --bg-color: #eee;
+    --font-color: #252525;
+}
+
+
+body {
+    background-color: var(--bg-color);
+    color: var(--font-color);
+    font-family: 'Cascadia Code', 'Courier New', Courier, monospace;
+}
+
