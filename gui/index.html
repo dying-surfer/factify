@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <script src="./js/renderer.js"></script>
-    <link rel="stylesheet" href="./css/styles.css" />
-    <title>Chartify</title>
-  </head>
-  <body>
-    <input type="file" name="spotify-zip" id="spotify-zip" />
-    <div id="debug"></div>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <script src="./js/renderer.js"></script>
+  <link rel="stylesheet" href="./css/styles.css" />
+  <title>Chartify</title>
+</head>
+
+<body>
+  
+  <label for="spotify-zip" class="custom-file-upload">
+    Datei auswählen
+  </label>
+  <input type="file" id="spotify-zip" />
+  <div id="debug"></div>
+</body>
+
 </html>
