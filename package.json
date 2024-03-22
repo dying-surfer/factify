@@ -1,0 +1,14 @@
+{
+  "name": "chartify",
+  "version": "1.0.0",
+  "description": "Visualizations of spotify history",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Ralph Schneller",
+  "license": "MIT Public License",
+  "devDependencies": {
+    "electron": "^29.1.5"
+  }
+}
