@@ -9,6 +9,7 @@ function handleFileChanged() {
     console.log(this.files[0].path);
     backend.init(this.files[0].path)
         .then((data) => {
+            document.getElementById('content').innerHTML = '';
             dataReady();
         })
 }
