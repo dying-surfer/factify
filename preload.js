@@ -8,10 +8,5 @@ contextBridge.exposeInMainWorld('versions', {
 
 
 contextBridge.exposeInMainWorld('backend', {
-  'init': init
+  'init': () => ipcRenderer.invoke('init'),
 })
-
-
-async function init(filePath){
-  return 'ok'
-}
