@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('node:path')
-const { Backend } = require('./src/backend.js');
+const { Backend } = require('./modules/backend.js');
 
 const createWindow = () => {
   const win = new BrowserWindow({
