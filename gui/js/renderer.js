@@ -1,3 +1,5 @@
+import * as d3 from './d3-7.9.0.js';
+
 window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('spotify-zip').addEventListener('change', handleFileChanged);
     drawStats();
