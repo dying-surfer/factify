@@ -28,8 +28,8 @@ async function drawStats() {
     addFact('Gehörte Lieder', hist.length);
     addFact('Gehörte Lieder (distinct)', tracks.length);
     addFact('Gehörte Künstler', artists.length);
-    addTop(50, 'Künstler', artists);
-    addTop(50, 'Heavy Rotation', tracks);
+    addTop(5, 'Künstler', artists);
+    addTop(5, 'Heavy Rotation', tracks);
     
 
     const artistTree = await backend.query({
