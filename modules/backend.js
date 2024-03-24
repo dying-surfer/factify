@@ -27,11 +27,10 @@ class Backend {
         return 'ok';
     }
 
-    async loadMusicHistory() {
+    async query(options) {
         const spotifyData = path.join(this.#workdir, 'Spotify Account Data');
-        return new Repo(spotifyData).query({source: 'music', query: 'raw'});
+        return new Repo(spotifyData).query(options);
     }
-
 }
 
 module.exports = {Backend};

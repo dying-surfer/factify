@@ -29,7 +29,7 @@ ipcMain.handle('init', async (event, path) => {
   return backend.init(path);
 });
 
-ipcMain.handle('loadMusicHistory', async (event) => {
-  return backend.loadMusicHistory();
+ipcMain.handle('query', async (event, options) => {
+  return backend.query(options);
 });
 
