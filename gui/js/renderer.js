@@ -20,7 +20,6 @@ async function drawStats() {
     }));
 
 
-
     const artists = goupSort(hist, (r) => r.artistName);
     const tracks  = goupSort(hist, (r) => `${r.artistName} - ${r.trackName}`);
 
