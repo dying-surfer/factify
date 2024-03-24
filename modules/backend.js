@@ -1,8 +1,7 @@
 const AdmZip = require("adm-zip");
 const path = require("path")
-const {app} = require('electron');
 const fs = require('fs')
-const fsPromises = require('fs/promises')
+const {Repo} = require("./repo");
 
 /**
  * Schnisttstelle zum backend.
@@ -11,27 +10,28 @@ class Backend {
 
     #workdir;
 
-    constructor(workdir = null){
-        if(workdir){
-            this.#workdir = workdir;            
-        } else {
-            this.#workdir = path.join(app.getPath('appData'), 'factify', 'raw_data');
+    constructor(workdir) {
+        if (!workdir) {
+            throw new Error('Workdir not found');
         }
+        this.#workdir = workdir;
     }
 
-    async init(filepath) {
+    init(filepath) {
         const zip = new AdmZip(filepath);
-                
-        fs.rmSync(this.#workdir, { recursive: true, force: true });
+
+        fs.rmSync(this.#workdir, {recursive: true, force: true});
         zip.extractAllTo(this.#workdir);
         console.log(`Extracted all to ${this.#workdir}`);
 
         return 'ok';
     }
 
-    async loadMusicHistory(){
-        return fsPromises.readFile(path.join(this.#workdir, 'Spotify Account Data', 'StreamingHistory_music_0.json'), 'utf-8');
+    async loadMusicHistory() {
+        const spotifyData = path.join(this.#workdir, 'Spotify Account Data');
+        return new Repo(spotifyData).query({source: 'music', query: 'raw'});
     }
+
 }
 
-module.exports = { Backend };
+module.exports = {Backend};

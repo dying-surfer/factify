@@ -22,11 +22,14 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
 })
 
+
+const backend = new Backend(path.join(app.getPath('appData'), 'factify', 'workdir'));
+
 ipcMain.handle('init', async (event, path) => {
-  return new Backend().init(path);
+  return backend.init(path);
 });
 
 ipcMain.handle('loadMusicHistory', async (event) => {
-  return new Backend().loadMusicHistory();
+  return backend.loadMusicHistory();
 });
 
