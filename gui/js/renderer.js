@@ -1,8 +1,7 @@
 
-
 window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('spotify-zip').addEventListener('change', handleFileChanged);
-    dataReady();
+    drawStats();
 })
 
 function handleFileChanged() {
@@ -10,12 +9,17 @@ function handleFileChanged() {
     backend.init(this.files[0].path)
         .then((data) => {
             document.getElementById('content').innerHTML = '';
-            dataReady();
+            drawStats();
         })
 }
 
-async function dataReady() {
-    let hist = JSON.parse(await backend.loadMusicHistory());
+async function drawStats() {
+    let hist = JSON.parse(await backend.query({
+        'source': 'music',
+        'query':  'raw'
+    }));
+
+
     const artists = goupSort(hist, (r) => r.artistName);
     const tracks  = goupSort(hist, (r) => `${r.artistName} - ${r.trackName}`);
 

@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('node:path')
-const api = require('./src/api');
+const { Backend } = require('./modules/backend.js');
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -22,12 +22,14 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
 })
 
+
+const backend = new Backend(path.join(app.getPath('appData'), 'factify', 'workdir'));
+
 ipcMain.handle('init', async (event, path) => {
-  return api.init(path);
+  return backend.init(path);
 });
 
-ipcMain.handle('loadMusicHistory', async (event) => {
-  return api.loadMusicHistory();
+ipcMain.handle('query', async (event, options) => {
+  return backend.query(options);
 });
-
 

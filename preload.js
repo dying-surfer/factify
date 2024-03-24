@@ -9,5 +9,5 @@ contextBridge.exposeInMainWorld('versions', {
 
 contextBridge.exposeInMainWorld('backend', {
   'init': (path) => ipcRenderer.invoke('init', path),
-  'loadMusicHistory': () => ipcRenderer.invoke('loadMusicHistory'),
+  'query': (options) => ipcRenderer.invoke('query', options)
 })
