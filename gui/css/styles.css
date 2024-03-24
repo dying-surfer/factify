@@ -1,7 +1,7 @@
 :root {
     --bg-color: #252525;
     --font-color: #eee;
-    
+
 }
 
 [data-theme="light"] {
@@ -29,7 +29,7 @@ input[type="file"] {
     cursor: pointer;
 }
 
-div, span, label{
+div, span, label {
     margin: 6px;
 }
 

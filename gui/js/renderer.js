@@ -1,4 +1,3 @@
-
 window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('spotify-zip').addEventListener('change', handleFileChanged);
     drawStats();
@@ -16,12 +15,12 @@ function handleFileChanged() {
 async function drawStats() {
     let hist = JSON.parse(await backend.query({
         'source': 'music',
-        'query':  'raw'
+        'query': 'raw'
     }));
 
 
     const artists = goupSort(hist, (r) => r.artistName);
-    const tracks  = goupSort(hist, (r) => `${r.artistName} - ${r.trackName}`);
+    const tracks = goupSort(hist, (r) => `${r.artistName} - ${r.trackName}`);
 
     add('<h2>Allgemein</h2>');
     addFact('Gehörte Lieder', hist.length);
@@ -32,7 +31,7 @@ async function drawStats() {
 }
 
 //TODO: datenaufbereitung gehört ins backend
-function goupSort(recs, fun){
+function goupSort(recs, fun) {
     const grouped = recs.reduce((acc, curr) => {
         let groupByVal = fun(curr);
         if (!acc[groupByVal]) {
@@ -51,7 +50,7 @@ function debug(x) {
 }
 
 
-function addTop(n, label, map){
+function addTop(n, label, map) {
     add(`<h2>Deine Top ${n} ${label} </h2>`);
     let count = 1;
     map.slice(0, n).forEach(([key, val]) => {

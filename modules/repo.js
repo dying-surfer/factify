@@ -29,7 +29,7 @@ class Repo {
 
         let fullpath = path.join(this.#spotifyDataPath, file);
         console.log(`Using file ${fullpath}`);
-        
+
         return fsPromises.readFile(fullpath, 'utf-8');
     }
 }
