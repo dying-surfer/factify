@@ -30,7 +30,7 @@ class Repo {
                 //TODO: wieso geth path.join nicht?
                 let json = await fsPromises.readFile(this.#spotifyDataPath + '\\' + file, 'utf-8');
                 let plays = JSON.parse(json);
-                data.push(plays)
+                data = data.concat(plays)
             }
         }
 
