@@ -16,7 +16,7 @@ class Backend {
             throw new Error('Workdir not found');
         }
         this.#workdir = workdir;
-        this.#repo = new Repo(path.join(this.#workdir, 'Spotify Account Data'));
+        this.#repo = new Repo(path.join(this.#workdir, 'Spotify Extended Streaming History'));
     }
 
     init(filepath) {
@@ -26,7 +26,7 @@ class Backend {
         // Clean up Working dir
         fs.rmSync(this.#workdir, {recursive: true, force: true});
 
-        // This extracts into subdirectory 'Spotify User Data'
+        // This extracts into subdirectory 'Spotify User Data'/'Spotify Extended Streaming History
         zip.extractAllTo(this.#workdir);
         return 'ok';
     }

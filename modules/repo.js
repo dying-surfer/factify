@@ -1,4 +1,4 @@
-const path = require("path")
+const path = require('node:path')
 const fsPromises = require('fs/promises')
 
 
@@ -11,34 +11,30 @@ class Repo {
     }
 
     async query(options) {
-        let file = null;
-        switch (options.source) {
-            case 'music':
-                file = 'StreamingHistory_music_0.json'
-                break;
-            case 'podcast':
-                file = 'StreamingHistory_podcast_0.json'
-                break;
-            default:
-                throw Error('unknown data source');
-        }
-
-        let fullpath = path.join(this.#spotifyDataPath, file);
-        console.log(`Using file ${fullpath}`);
-
         switch (options.query) {
             case 'raw':
-                return this.#raw(fullpath)
+                return this.#raw()
             case 'tree':
-                return this.#tree(fullpath)
+                return this.#tree()
             default:
                 throw Error('Query not supported')
         }
     }
 
     async #raw(path) {
-        const json = await fsPromises.readFile(path, 'utf-8');
-        return JSON.parse(json);
+
+        let data = [];
+        let files = await fsPromises.readdir(this.#spotifyDataPath);
+        for (const file of files) {
+            if(file.match(/Streaming_History_Audio.*\.json/)){
+                //TODO: wieso geth path.join nicht?
+                let json = await fsPromises.readFile(this.#spotifyDataPath + '\\' + file, 'utf-8');
+                let plays = JSON.parse(json);
+                data.push(plays)
+            }
+        }
+
+        return data;
     }
 
     async #tree(path) {
@@ -54,7 +50,7 @@ class Repo {
             let currentTrack = r['trackName'];
 
             let artistNode = tree.children.find((e) => e.name === currentArtist)
-            if(!artistNode){
+            if (!artistNode) {
                 artistNode = {
                     name: currentArtist,
                     children: []
@@ -63,7 +59,7 @@ class Repo {
             }
 
             let trackNode = artistNode.children.find((e) => e.name === currentTrack)
-            if(!trackNode){
+            if (!trackNode) {
                 trackNode = {
                     name: currentTrack,
                     value: 0
