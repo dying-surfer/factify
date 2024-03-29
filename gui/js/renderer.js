@@ -20,16 +20,16 @@ async function drawStats() {
     });
 
 
-    const artists = goupSort(hist, (r) => r.master_metadata_album_artist_name);
-    const tracks = goupSort(hist, (r) => `${r.master_metadata_album_artist_name} - ${r.master_metadata_track_name}`);
+    const artists = goupSort(hist, (r) => r.artistName);
+    const tracks = goupSort(hist, (r) => `${r.artistName} - ${r.trackName}`);
 
 
     add('<h2>Allgemein</h2>');
     addFact('Gehörte Lieder', hist.length);
     addFact('Gehörte Lieder (distinct)', tracks.length);
     addFact('Gehörte Künstler', artists.length);
-    addTop(50, 'Künstler', artists);
-    addTop(50, 'Heavy Rotation', tracks);
+    addTop(100, 'Künstler', artists);
+    addTop(100, 'Heavy Rotation', tracks);
     
 
     const artistTree = await backend.query({

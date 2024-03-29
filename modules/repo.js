@@ -34,7 +34,12 @@ class Repo {
             }
         }
 
-        return data;
+        return data.map((e) =>{
+            return {
+                'artistName': e.master_metadata_album_artist_name ? e.master_metadata_album_artist_name : e.episode_show_name,
+                'trackName': e.master_metadata_track_name ? e.master_metadata_track_name : e.episode_name,
+            }
+        });
     }
 
     async #tree(path) {
