@@ -26,22 +26,23 @@ async function drawStats() {
     const artists = goupSort(hist, (r) => r.artistName);
     const tracks = goupSort(hist, (r) => `${r.artistName} - ${r.trackName}`);
 
-
-    add('<h2>Allgemein</h2>');
-    addFact('Gehörte Lieder', hist.length);
-    addFact('Gehörte Lieder (distinct)', tracks.length);
-    addFact('Gehörte Künstler', artists.length);
-    addTop(100, 'Künstler', artists);
-    addTop(100, 'Heavy Rotation', tracks);
-    
-
     const artistTree = await backend.query({
         'source': 'music',
         'query': 'tree',
         'year': document.getElementById('year').value
     })
 
+
+    add('<h2>Allgemein</h2>');
+    addFact('Gehörte Lieder', hist.length);
+    addFact('Gehörte Lieder (distinct)', tracks.length);
+    addFact('Gehörte Künstler', artists.length);
+
     addElement(chart(artistTree));
+
+
+    addTop(100, 'Künstler', artists);
+    addTop(100, 'Heavy Rotation', tracks);
 
 }
 
@@ -66,12 +67,15 @@ function debug(x) {
 
 
 function addTop(n, label, map) {
-    add(`<h2>Deine Top ${n} ${label} </h2>`);
+    let html =`<span class="toplist"><h2>Deine Top ${n} ${label} </h2>`;
     let count = 1;
     map.slice(0, n).forEach(([key, val]) => {
-        add(`${count}. ${key} ${val} <br>`);
+        html += `${count}. ${key} ${val} <br>`;
         count++;
     });
+    html += `</span>`;
+    add(html)
+
 }
 
 function addFact(label, value) {

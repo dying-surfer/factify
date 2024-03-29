@@ -33,3 +33,6 @@ div, span, label {
     margin: 6px;
 }
 
+span.toplist{
+    float: left;
+}
