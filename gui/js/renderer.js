@@ -15,8 +15,7 @@ function handleFileChanged() {
 
 async function drawStats() {
     let hist = await backend.query({
-        'source': 'music',
-        'query': 'raw'
+        'query': 'raw',
     });
 
 

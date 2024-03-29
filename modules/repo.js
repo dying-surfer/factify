@@ -13,20 +13,20 @@ class Repo {
     async query(options) {
         switch (options.query) {
             case 'raw':
-                return this.#raw()
+                return this.#raw(options)
             case 'tree':
-                return this.#tree()
+                return this.#tree(options)
             default:
                 throw Error('Query not supported')
         }
     }
 
-    async #raw(path) {
+    async #raw(options) {
 
         let data = [];
         let files = await fsPromises.readdir(this.#spotifyDataPath);
         for (const file of files) {
-            if(file.match(/Streaming_History_Audio.*\.json/)){
+            if (file.match(/Streaming_History_Audio.*\.json/)) {
                 //TODO: wieso geth path.join nicht?
                 let json = await fsPromises.readFile(this.#spotifyDataPath + '\\' + file, 'utf-8');
                 let plays = JSON.parse(json);
@@ -34,12 +34,16 @@ class Repo {
             }
         }
 
-        return data.map((e) =>{
-            return {
-                'artistName': e.master_metadata_album_artist_name ? e.master_metadata_album_artist_name : e.episode_show_name,
-                'trackName': e.master_metadata_track_name ? e.master_metadata_track_name : e.episode_name,
-            }
-        });
+        let  year = options.year ? options.year : '';
+        return data
+            .filter((e) => e.ts.startsWith(year))
+            .map((e) => {
+                return {
+                    'ts': e.ts,
+                    'artistName': e.master_metadata_album_artist_name ? e.master_metadata_album_artist_name : e.episode_show_name,
+                    'trackName': e.master_metadata_track_name ? e.master_metadata_track_name : e.episode_name,
+                }
+            });
     }
 
     async #tree(path) {
