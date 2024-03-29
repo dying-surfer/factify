@@ -1,5 +1,6 @@
 window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('spotify-zip').addEventListener('change', handleFileChanged);
+    document.getElementById('year').addEventListener("change", drawStats);
     drawStats();
 })
 
@@ -14,8 +15,11 @@ function handleFileChanged() {
 }
 
 async function drawStats() {
+    document.getElementById('content').innerHTML = '';
+
     let hist = await backend.query({
         'query': 'raw',
+        'year': document.getElementById('year').value
     });
 
 
@@ -33,7 +37,8 @@ async function drawStats() {
 
     const artistTree = await backend.query({
         'source': 'music',
-        'query': 'tree'
+        'query': 'tree',
+        'year': document.getElementById('year').value
     })
 
     addElement(chart(artistTree));

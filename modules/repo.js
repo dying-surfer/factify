@@ -34,20 +34,21 @@ class Repo {
             }
         }
 
-        let  year = options.year ? options.year : '';
+        let year = options.year ? options.year : '';
         return data
-            .filter((e) => e.ts.startsWith(year))
             .map((e) => {
                 return {
                     'ts': e.ts,
                     'artistName': e.master_metadata_album_artist_name ? e.master_metadata_album_artist_name : e.episode_show_name,
                     'trackName': e.master_metadata_track_name ? e.master_metadata_track_name : e.episode_name,
                 }
-            });
+            })
+            .filter((e) => e.ts.startsWith(year) && e.artistName != null)
+            ;
     }
 
-    async #tree(path) {
-        const data = await this.#raw(path);
+    async #tree(options) {
+        const data = await this.#raw(options);
 
         const tree = {
             name: 'root',
